@@ -1,36 +1,64 @@
 import React from "react";
-import Qualitie from "./qualitie";
 import Bookmark from "./bookmark";
-const User = ({ element, handleDelete, handleToogleBookMark }) => {
-  //console.log(users);
-  return (
-    <tr key={element._id}>
-      <td>{element.name}</td>
-      <td>
-        {element.qualities.map((item) => {
-          return <Qualitie item={item} key={item._id} />;
-        })}
-      </td>
-      <td>{element.profession.name}</td>
-      <td>{element.completedMeetings}</td>
-      <td>{element.rate}/5</td>
-      <td>
-        <Bookmark
-          handleToogleBookMark={handleToogleBookMark}
-          id={element._id}
-          bookmark={element.bookmark}
-        />
-      </td>
-      <td>
-        <button
-          className="btn btn-danger"
-          onClick={() => handleDelete(element._id)}
-        >
-          delete
-        </button>
-      </td>
-    </tr>
-  );
+import Qualitie from "./qualitie";
+import PropTypes from "prop-types";
+const User = ({
+    qualities,
+    name,
+    onDelete,
+    onToogleBookMark,
+    profession,
+    rate,
+    completedMeetings,
+    bookmark,
+    _id
+}) => {
+    return (
+        <tr>
+            <td>{name}</td>
+            <td>
+                {qualities.map((qual) => {
+                    return (
+                        <Qualitie
+                            name={qual.name}
+                            color={qual.color}
+                            key={qual._id}
+                        />
+                    );
+                })}
+            </td>
+            <td>{profession.name}</td>
+            <td>{completedMeetings}</td>
+            <td>{rate}/5</td>
+            <td>
+                <Bookmark
+                    onToogleBookMark={onToogleBookMark}
+                    id={_id}
+                    bookmark={bookmark}
+                />
+            </td>
+            <td>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => onDelete(_id)}
+                >
+                    delete
+                </button>
+            </td>
+        </tr>
+    );
+};
+
+User.propTypes = {
+    qualities: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onToogleBookMark: PropTypes.func.isRequired,
+    profession: PropTypes.object.isRequired,
+    rate: PropTypes.number.isRequired,
+    completedMeetings: PropTypes.number.isRequired,
+    bookmark: PropTypes.bool.isRequired,
+    _id: PropTypes.string.isRequired
 };
 
 export default User;

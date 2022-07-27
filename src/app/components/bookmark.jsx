@@ -1,16 +1,19 @@
 import React from "react";
-
-const Bookmark = ({ handleToogleBookMark, id, bookmark }) => {
-  const renderIcon = () => {
-    return bookmark === false ? (
-      <i className="bi bi-bookmark"></i>
-    ) : (
-      <i className="bi bi-bookmark-heart-fill"></i>
-    );
-  };
-  return (
-    <button onClick={() => handleToogleBookMark(id)}>{renderIcon()}</button>
-  );
+import PropTypes from "prop-types";
+const Bookmark = ({ onToogleBookMark, id, bookmark }) => {
+    const renderIcon = () => {
+        return bookmark === false ? (
+            <i className="bi bi-bookmark"></i>
+        ) : (
+            <i className="bi bi-bookmark-heart-fill"></i>
+        );
+    };
+    return <button onClick={() => onToogleBookMark(id)}>{renderIcon()}</button>;
 };
 
+Bookmark.propTypes = {
+    onToogleBookMark: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
+    bookmark: PropTypes.bool.isRequired
+};
 export default Bookmark;
