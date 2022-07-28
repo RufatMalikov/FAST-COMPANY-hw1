@@ -37,6 +37,7 @@ const User = ({
                     bookmark={bookmark}
                 />
             </td>
+
             <td>
                 <button
                     className="btn btn-danger"
