@@ -33,7 +33,6 @@ function App() {
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
-    console.log(users);
 
     const filteredUsers = selectedProf
         ? users.filter((user) => user.profession.name === selectedProf.name)
