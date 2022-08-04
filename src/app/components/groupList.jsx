@@ -45,7 +45,6 @@ const GroupList = ({
         );
     }
 };
-
 GroupList.defaultProps = { valueProperty: "_id", contentProperty: "name" };
 GroupList.propTypes = {
     items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
