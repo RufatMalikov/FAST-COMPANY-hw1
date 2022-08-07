@@ -71,7 +71,7 @@ const Users = () => {
         const clearFilter = () => {
             setSelectedProf();
         };
-
+        console.log(users);
         return (
             <div className="d-flex">
                 {professions && (
@@ -90,7 +90,7 @@ const Users = () => {
                     </div>
                 )}
                 <div className="d-flex flex-column">
-                    {users > 0 && <SearchStatus length={count} />}
+                    {users && <SearchStatus length={count} />}
                     {count > 0 && (
                         <UserTable
                             users={userCrop}
