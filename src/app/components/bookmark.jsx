@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 const Bookmark = ({ onToogleBookMark, id, bookmark }) => {
     const renderIcon = () => {
         return bookmark === false ? (
-            <i className="bi bi-bookmark"></i>
+            <>
+                <i className="bi bi-bookmark"></i>
+            </>
         ) : (
             <i className="bi bi-bookmark-heart-fill"></i>
         );
