@@ -12,7 +12,7 @@ const Users = () => {
     const [professions, setProfesions] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
-    const pageSize = 8;
+    const pageSize = 2;
     const [users, setUsers] = useState();
 
     useEffect(() => {
@@ -112,7 +112,7 @@ const Users = () => {
             </div>
         );
     }
-    return "   загрузка...";
+    return "загрузка...";
 };
 
 Users.propTypes = {
