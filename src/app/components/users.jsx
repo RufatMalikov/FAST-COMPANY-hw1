@@ -9,17 +9,20 @@ const Users = () => {
     const params = useParams();
     const [users, setUsers] = useState();
     const [professions, setProfesions] = useState();
+    const [user, setUser] = useState();
+    const { userId } = params;
 
     useEffect(() => {
-        api.users.fetchAll().then((data) => setUsers(data)),
-            api.professions.fetchAll().then((data) => setProfesions(data));
+        api.users.fetchAll().then((data) => setUsers(data));
+        api.professions.fetchAll().then((data) => setProfesions(data));
+        api.users.getById(userId).then((data) => setUser(data));
     }, []);
 
-    const { userId } = params;
+  
     return (
         <>
             {userId ? (
-                <UserPage id={userId} users={users} />
+                <UserPage id={userId} user={user} users={users} />
             ) : (
                 <UsersList
                     id={userId}
@@ -27,6 +30,7 @@ const Users = () => {
                     setUsers={setUsers}
                     professions={professions}
                     setProfesions={setProfesions}
+
                 />
             )}
         </>
