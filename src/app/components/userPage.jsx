@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 import QualitiesList from "./qualitiesList";
 import { useHistory } from "react-router-dom";
 
-const UserPage = ({ user, id }) => {
-    const history = useHistory();
-    
-    
-        
+const UserPage = ({ user }) => {
+    const history = useHistory();  
     const handleReturnUserList = () => {
         history.replace("/users");
     };

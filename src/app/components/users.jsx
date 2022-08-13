@@ -22,15 +22,12 @@ const Users = () => {
     return (
         <>
             {userId ? (
-                <UserPage id={userId} user={user} users={users} />
+                <UserPage  user={user}  />
             ) : (
                 <UsersList
-                    id={userId}
                     users={users}
                     setUsers={setUsers}
                     professions={professions}
-                    setProfesions={setProfesions}
-
                 />
             )}
         </>
