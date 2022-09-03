@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
-import UserPage from "./userPage";
-import UsersList from "./usersList";
+import UserPage from "../components/userPage";
+import UsersList from "../components/usersList";
 import api from "../api";
 
 const Users = () => {
@@ -18,11 +18,10 @@ const Users = () => {
         api.users.getById(userId).then((data) => setUser(data));
     }, []);
 
-  
     return (
         <>
             {userId ? (
-                <UserPage  user={user}  />
+                <UserPage user={user} />
             ) : (
                 <UsersList
                     users={users}

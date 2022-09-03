@@ -21,7 +21,7 @@ const TableBody = ({ data, columns }) => {
         }
         return _.get(item, columns[column].path);
     };
-
+    // console.log(data);
     return (
         <tbody>
             {data.map((item) => (

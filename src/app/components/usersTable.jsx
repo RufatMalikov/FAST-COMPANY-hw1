@@ -45,7 +45,7 @@ const UserTable = ({
             )
         }
     };
-
+    // console.log(users);
     return (
         <Table
             onSort={onSort}

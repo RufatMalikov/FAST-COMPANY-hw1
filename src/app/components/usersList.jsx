@@ -5,7 +5,7 @@ import SearchStatus from "./searchStatus";
 import Pagination from "./pagination";
 import UserTable from "./usersTable";
 import GroupList from "./groupList";
-
+import Filter from "./filter";
 import _ from "lodash";
 const UsersList = ({ users, setUsers, professions }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -34,6 +34,7 @@ const UsersList = ({ users, setUsers, professions }) => {
 
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
+        setInputSymbol("");
     };
 
     const handlePageChange = (pageIndex) => {
@@ -43,9 +44,21 @@ const UsersList = ({ users, setUsers, professions }) => {
         setSortBy(item);
     };
 
+    const [inputSymbol, setInputSymbol] = useState("");
+    const handleChange = (e) => {
+        setInputSymbol(e.target.value);
+        setSelectedProf();
+    };
+
     if (users) {
+        const filteredUsersonSymbol = users.filter((user) =>
+            user.name.toLowerCase().includes(inputSymbol.toLowerCase().trim())
+        );
+
         const filteredUsers = selectedProf
             ? users.filter((user) => user.profession.name === selectedProf.name)
+            : inputSymbol && filteredUsersonSymbol.length > 0
+            ? filteredUsersonSymbol
             : users;
 
         const count = filteredUsers.length;
@@ -59,8 +72,8 @@ const UsersList = ({ users, setUsers, professions }) => {
         const userCrop = paginate(sortedUsers, currentPage, pageSize);
         const clearFilter = () => {
             setSelectedProf();
+            setInputSymbol("");
         };
-
         return (
             <div className="d-flex">
                 {professions && (
@@ -81,13 +94,20 @@ const UsersList = ({ users, setUsers, professions }) => {
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
                     {count > 0 && (
-                        <UserTable
-                            users={userCrop}
-                            onDelete={handleDelete}
-                            onToogleBookMark={handleToogleBookMark}
-                            onSort={handleSort}
-                            selectedSort={sortBy}
-                        />
+                        <>
+                            {" "}
+                            <Filter
+                                filter={inputSymbol}
+                                onChange={handleChange}
+                            />
+                            <UserTable
+                                users={userCrop}
+                                onDelete={handleDelete}
+                                onToogleBookMark={handleToogleBookMark}
+                                onSort={handleSort}
+                                selectedSort={sortBy}
+                            />
+                        </>
                     )}
                     <div className="d-flex justify-content-center">
                         <Pagination
