@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { paginate } from "../utils/paginate";
-import SearchStatus from "./searchStatus";
-import Pagination from "./pagination";
-import UserTable from "./usersTable";
-import GroupList from "./groupList";
-import Filter from "./filter";
+import { paginate } from "../../../utils/paginate";
+import SearchStatus from "../../ui/searchStatus";
+import api from "../../../api";
+import Pagination from "../../common/pagination";
+import UserTable from "../../ui/usersTable";
+
+import GroupList from "../../common/groupList";
+
+import Filter from "../../filter";
 import _ from "lodash";
-const UsersList = ({ users, setUsers, professions }) => {
+const UsersListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
     const pageSize = 8;
+    const [users, setUsers] = useState();
+    const [professions, setProfesions] = useState();
+    useEffect(() => {
+        api.users.fetchAll().then((data) => setUsers(data));
+        api.professions.fetchAll().then((data) => setProfesions(data));
+    }, []);
     const handleDelete = (userId) => {
         return setUsers((prevState) =>
             prevState.filter((element) => element._id !== userId)
@@ -123,10 +132,9 @@ const UsersList = ({ users, setUsers, professions }) => {
     }
     return "ЗАГРУЗКА...";
 };
-UsersList.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array,
-    professions: PropTypes.array,
-    setUsers: PropTypes.func.isRequired
+    professions: PropTypes.array
 };
 
-export default UsersList;
+export default UsersListPage;

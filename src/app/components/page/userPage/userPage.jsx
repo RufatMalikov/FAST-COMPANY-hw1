@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import QualitiesList from "./qualitiesList";
+import Qualities from "../../ui/qualities";
+
+import api from "../../../api";
 import { useHistory } from "react-router-dom";
 
-const UserPage = ({ user }) => {
-    const history = useHistory();  
+const UserPage = ({ userId }) => {
+    const history = useHistory();
+    const [user, setUser] = useState();
+
+    useEffect(() => {
+        api.users.getById(userId).then((data) => setUser(data));
+    }, []);
+
     const handleReturnUserList = () => {
-        history.replace("/users");
+        history.replace(`/users/${user._id}/edit`);
     };
+    const data = JSON.parse(localStorage.getItem("data"));
+
+    useEffect(() => {
+        api.users.update(userId, data).then((data) => setUser(data));
+    }, []);
+    console.log(user);
     if (user) {
         return (
             <>
                 <h1> {user.name}</h1>
                 <h2> {`Профессия: ${user.profession.name}`}</h2>
-                {<QualitiesList qualities={user.qualities} />}
+                {<Qualities qualities={user.qualities} />}
                 <p>{`completedMeetings: ${user.completedMeetings}`}</p>
                 <h2> {`Rate: ${user.rate}`}</h2>
                 <button
@@ -21,16 +35,15 @@ const UserPage = ({ user }) => {
                         handleReturnUserList();
                     }}
                 >
-                Все Пользователи
+                    Изменить
                 </button>
             </>
         );
     }
     return "ЗАГРУЗКА...";
-    
 };
 UserPage.propTypes = {
-    id: PropTypes.string.isRequired,
     user: PropTypes.object,
+    userId: PropTypes.string
 };
 export default UserPage;
