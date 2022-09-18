@@ -116,11 +116,11 @@ const EditForm = ({ user }) => {
         if (!isValid) return;
         const { profession, qualities } = data;
 
-        console.log({
-            ...data,
-            profession: getProfessionById(profession),
-            qualities: getQualities(qualities)
-        });
+        // console.log({
+        //     ...data,
+        //     profession: getProfessionById(profession),
+        //     qualities: getQualities(qualities)
+        // });
 
         history.replace(`/users/${user._id}`);
 

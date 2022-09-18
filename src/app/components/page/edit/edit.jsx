@@ -7,6 +7,7 @@ const Edit = () => {
     const { userId } = params;
     const [user, setUser] = useState();
     const [professions, setProfession] = useState([]);
+    const [qualities, setQualities] = useState([]);
 
     useEffect(() => {
         api.users.getById(userId).then((data) => setUser(data));
@@ -17,6 +18,14 @@ const Edit = () => {
             }));
             setProfession(professionsList);
         });
+        api.qualities.fetchAll().then((data) => {
+            const qualitiesList = Object.keys(data).map((optionName) => ({
+                label: data[optionName].name,
+                value: data[optionName]._id,
+                color: data[optionName].color
+            }));
+            setQualities(qualitiesList);
+        });
     }, []);
 
     return (
@@ -26,7 +35,9 @@ const Edit = () => {
                     {
                         <>
                             <div className="mb-4"></div>
-                            {professions.length > 0 && user ? (
+                            {professions.length > 0 &&
+                            user &&
+                            qualities.length > 0 ? (
                                 <EditForm
                                     user={user}
                                     setUser={setUser}

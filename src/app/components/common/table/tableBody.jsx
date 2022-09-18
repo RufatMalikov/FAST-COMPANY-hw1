@@ -13,6 +13,7 @@ const TableBody = ({ data, columns }) => {
             }
             columns[column].component;
         }
+
         if (columns[column].path === "name") {
             return (
                 <Link className="nav-link" to={`/users/${item._id}`}>
@@ -22,7 +23,9 @@ const TableBody = ({ data, columns }) => {
         }
         return _.get(item, columns[column].path);
     };
-
+    {
+        localStorage.removeItem("data");
+    }
     return (
         <tbody>
             {data.map((item) => (

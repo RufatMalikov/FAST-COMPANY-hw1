@@ -13,15 +13,17 @@ const UserPage = ({ userId }) => {
         api.users.getById(userId).then((data) => setUser(data));
     }, []);
 
-    const handleReturnUserList = () => {
-        history.replace(`/users/${user._id}/edit`);
-    };
     const data = JSON.parse(localStorage.getItem("data"));
-
     useEffect(() => {
         api.users.update(userId, data).then((data) => setUser(data));
     }, []);
-    console.log(user);
+
+    const handleEditUser = () => {
+        if (user) {
+            history.push(`/users/${user._id}/edit`);
+        }
+    };
+
     if (user) {
         return (
             <>
@@ -32,7 +34,7 @@ const UserPage = ({ userId }) => {
                 <h2> {`Rate: ${user.rate}`}</h2>
                 <button
                     onClick={() => {
-                        handleReturnUserList();
+                        handleEditUser();
                     }}
                 >
                     Изменить
