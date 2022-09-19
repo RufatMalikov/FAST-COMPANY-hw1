@@ -127,7 +127,7 @@ const EditForm = ({ user }) => {
             })
         );
     };
-    if (professions.length > 0) {
+    if (professions.length > 0 && qualities.length > 0) {
         return (
             <>
                 <form onSubmit={handleSubmit}>
